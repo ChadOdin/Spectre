@@ -1,0 +1,7 @@
+# CSP Policies
+# still need to work this one out properly
+csp_policies:
+  - "default-src 'self' https://*.trusted.com; script-src 'self' https://trusted.cdn.com 'unsafe-inline'; connect-src 'self' https://api.example.com https://*.trusted.com;"
+  - "default-src 'self'; script-src 'self' 'unsafe-eval'; img-src 'self' data: https://images.example.com; style-src 'self' 'unsafe-inline' https://styles.example.com;"
+  - "default-src 'self'; frame-src 'self' https://trusted.com; sandbox allow-scripts allow-same-origin; form-action 'self' https://trusted.com;"
+  - "default-src 'self'; script-src 'self' https://trusted.cdn.com 'nonce-12345'; connect-src 'self'; style-src 'self' https://styles.example.com;"
